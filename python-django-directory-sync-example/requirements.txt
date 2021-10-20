@@ -6,5 +6,5 @@ idna==2.10
 pytz==2021.1
 requests==2.25.1
 sqlparse==0.4.1
-urllib3==1.26.4
+urllib3==1.26.5
 workos==0.8.6
