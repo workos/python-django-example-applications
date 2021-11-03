@@ -31,7 +31,7 @@ If you get stuck, please reach out to us at support@workos.com so we can help.
    $ git clone git@github.com:workos-inc/python-django-example-applications.git
    ```
 
-3. Navigate to the Admin Portal example app within the cloned repo.
+3. Navigate to the Directory Sync example app within the cloned repo.
    ```bash
    $ cd python-django-example-applications/python-django-directory-sync-example
    ````
@@ -67,6 +67,7 @@ If you get stuck, please reach out to us at support@workos.com so we can help.
    ```bash
    export WORKOS_API_KEY=<value found in step 6>
    export DIRECTORY_ID=<value found in step 6>
+   export WEBHOOKS_SECRET=<value found in WorkOS Dashboard>
    ```
 
    To exit the Nano text editor, type `CTRL + x`. When prompted to "Save modified buffer", type `Y`, then press the `Enter` or `Return` key.
