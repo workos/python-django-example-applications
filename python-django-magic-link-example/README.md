@@ -28,7 +28,6 @@ A basic Django app that uses the [WorkOS Python SDK](https://github.com/workos-i
 3. Navigate to the Admin Portal example app within the cloned repo.
    ```bash
    $ cd python-django-example-applications/python-django-magic-link-example
-   ````
    ```
 
 ### Install Dependencies
