@@ -14,9 +14,10 @@
                 </div>
             </div>
             
-            <h2>Python Django Directory Sync Example App</h2>
-            <a class="button login_button" href="{% url 'users' %}">Users</a>
-            <a class="button login_button" href="{% url 'groups' %}">Groups</a>
+            <h2>Python Flask Directory Sync Example App</h2>
+            {% for i in directories %}
+                <a class="button login_button" href="/directory?id={{i.id}}">{{ i.name }}</a>
+            {% endfor %}            
         </div>
     </body>
 </html>
