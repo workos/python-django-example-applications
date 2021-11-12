@@ -143,6 +143,8 @@ div.text_box {
     border-radius: 5px;
     border: 2px solid #6363f1;
     width: 75%;
+    max-height: 400px;
+    overflow: scroll;
     padding: 10px;
     word-wrap: break-word;
 }
