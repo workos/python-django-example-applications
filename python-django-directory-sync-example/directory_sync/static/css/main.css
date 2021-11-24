@@ -34,6 +34,18 @@ body {
     align-items: center;
 }
 
+.flex_right {
+    justify-content: flex-end;
+}
+
+.flex_space_between {
+    justify-content: space-between;
+}
+
+.hidden {
+    display: none;
+}
+
 .container_success {
     display: flex;
     flex-direction: column;
@@ -78,6 +90,12 @@ body {
     background-color: #555555;
     border: 2px solid #555555;
     color: white;
+}
+
+.button_outline {
+    background-color: #ffffff;
+    color: #6363f1;
+    border-color: #6363f1;
 }
 
 .login_button {
