@@ -5,9 +5,18 @@ import workos
 from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+import socketio
+
+from workos_django.settings import BASE_DIR
+
+basedir = BASE_DIR 
+sio = socketio.Server()
+thread = None
 
 workos.api_key = os.getenv('WORKOS_API_KEY')
 workos.base_api_url = 'http://localhost:8000/' if settings.DEBUG else workos.base_api_url
+
+
 
 def get_home(request):
     directories = workos.client.directory_sync.list_directories()
@@ -43,6 +52,7 @@ def webhooks(request):
             secret = os.getenv('WEBHOOKS_SECRET')
         )
 
-        print(response)
+        message = json.dumps(response)
+        sio.emit('webhook_received', message)
 
     return render(request, 'directory_sync/webhooks.html')

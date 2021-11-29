@@ -9,3 +9,9 @@ sqlparse==0.4.2
 urllib3==1.26.5
 workos==1.6.0
 python-dotenv
+enum-compat==0.0.3
+eventlet==0.30.0
+greenlet==0.4.17
+python-engineio
+python-socketio
+six==1.10.0

@@ -46,6 +46,10 @@ body {
     display: none;
 }
 
+.margin_top {
+    margin-top: 15px;
+}
+
 .container_success {
     display: flex;
     flex-direction: column;
@@ -188,4 +192,12 @@ div.text_box {
 
 .logged_in_nav img:hover {
     border: 2px solid #555555;
+}
+
+.webhooks_container {
+    width: 45vw;
+    background-color: #dad8d8;
+    padding: 25px;
+    max-height: 700px;
+    overflow-y: scroll;
 }

@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel="stylesheet" href="../../static/css/main.css">
+        <link rel="stylesheet" type='text/css' href="../../static/css/main.css">
     </head>
     <body class="container_success">
         <div class="logged_in_nav">
@@ -8,7 +8,8 @@
                 <p>Webhooks</p>
             </div>
             <div>
-                <img src="../static/images/workos_logo_new.png" alt="workos logo">
+                {% load static %}
+                <img src="{% static 'images/workos_logo_new.png'%}" alt="workos logo">
             </div>
         </div>
         <div class='flex'>
@@ -42,5 +43,38 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+        <script type="text/javascript" charset="utf-8">
+            var counter = 0
+            var webhooksView = document.getElementById('webhooks-view')
+            var clearButtonDiv = document.getElementById('clear_button_div')
+            var clearButton = document.getElementById('clear_button')
+            var tutorialButton = document.getElementById('tutorial_button')
+
+            var socket = io("http://localhost:8000")
+            socket.on('connect', function() {
+                console.log('socket connection successful')
+            })
+                    
+            socket.on('webhook_received', (data) => {
+                console.log('webhook received', data);
+                webhooksView.classList.add("webhooks_container")
+                webhooksView.insertAdjacentHTML("afterbegin",
+                
+                "<div class='margin_top'> Webhook received at: " + new Date().toISOString() + "</div>" +
+                "<br/>" +
+                "<code>" + data + "</code>" +
+                "<br/>"
+                );
+                if (counter < 1) {
+                    clearButtonDiv.classList.remove('login_button')
+                    clearButtonDiv.classList.add('flex_right')
+                    clearButton.classList.remove('hidden')
+                    tutorialButton.classList.add('hidden')
+                    counter ++
+                }
+            })
+        </script>
     </body>
 </html>
