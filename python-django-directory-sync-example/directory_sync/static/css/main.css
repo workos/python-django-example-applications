@@ -34,6 +34,22 @@ body {
     align-items: center;
 }
 
+.flex_right {
+    justify-content: flex-end;
+}
+
+.flex_space_between {
+    justify-content: space-between;
+}
+
+.hidden {
+    display: none;
+}
+
+.margin_top {
+    margin-top: 15px;
+}
+
 .container_success {
     display: flex;
     flex-direction: column;
@@ -78,6 +94,12 @@ body {
     background-color: #555555;
     border: 2px solid #555555;
     color: white;
+}
+
+.button_outline {
+    background-color: #ffffff;
+    color: #6363f1;
+    border-color: #6363f1;
 }
 
 .login_button {
@@ -170,4 +192,12 @@ div.text_box {
 
 .logged_in_nav img:hover {
     border: 2px solid #555555;
+}
+
+.webhooks_container {
+    width: 45vw;
+    background-color: #dad8d8;
+    padding: 25px;
+    max-height: 700px;
+    overflow-y: scroll;
 }
