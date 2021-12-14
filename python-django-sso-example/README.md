@@ -90,11 +90,11 @@ An example Django application demonstrating how to use the [WorkOS Python SDK](h
    . . .
    ```
 
-11. In `python-django-sso-example/sso/views.py` change the `CUSTOMER_EMAIL_DOMAIN` string value to an email domain that makes sense for your testing purposes if the default `gmail.com` isn't relevant.
+11. In `python-django-sso-example/sso/views.py` change the `CONNECTION_ID` string value to the connection ID that you are targeting. This can be found in the WorkOS Dashboard under the Connection Settings. 
 
 12. The final setup step is to start the server.
    ```bash
-   (env) $ python3 manage.py runserver
+   (env) $ python3 manage.py runserver --insecure
    ```
 
    You'll know the server is running when you see no warnings or errors in the CLI, and output similar to the following is displayed:
@@ -125,7 +125,7 @@ If you get stuck, please reach out to us at support@workos.com so we can help.
 
 ## Testing the Integration
 
-1. Naviagte to the `python-django-sso-example` directory, which contains the `manage.py` file. Source the virtual environment we created earlier, if it isn't still activated from the steps above. Start the Django server locally.
+13. Naviagte to the `python-django-sso-example` directory, which contains the `manage.py` file. Source the virtual environment we created earlier, if it isn't still activated from the steps above. Start the Django server locally.
 
    ```bash
    $ cd ~/Desktop/python-django-sso-example/

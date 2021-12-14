@@ -15,8 +15,8 @@ workos.base_api_url = 'http://localhost:8000/' if settings.DEBUG else workos.bas
 # Constants
 # Required: Fill in either domain or customer_ID or both, at least one must be populated to generate auth connection.
 # For testing purposes we fitted domain with gmail.com as an example, please edit and add domains as needed for your testing.
-CUSTOMER_EMAIL_DOMAIN = 'gmail.com'
-CONNECTION_ID = ''
+
+CONNECTION_ID = 'xxx'
 REDIRECT_URI = os.getenv('REDIRECT_URI')
 
 
@@ -27,10 +27,9 @@ def login(request):
 def auth(request):
 
     authorization_url = workos.client.sso.get_authorization_url(
-        domain = CUSTOMER_EMAIL_DOMAIN,
+        connection= CONNECTION_ID,
         redirect_uri= REDIRECT_URI,
-        state={},
-        connection= CONNECTION_ID
+        state={},        
     )
     return redirect(authorization_url)
 
@@ -42,16 +41,10 @@ def auth_callback(request):
     print(p_profile)
     first_name = p_profile['profile']['first_name']
 
-    if "picture" in p_profile['profile']['raw_attributes']:
-        image = p_profile['profile']['raw_attributes']['picture']
-    else: 
-        image = "../static/images/workos_logo.png"
-
     raw_profile = p_profile['profile']
 
     return render(request, 'sso/login_successful.html', {
         "p_profile": p_profile,
         "first_name": first_name,
-        "image": image,
         "raw_profile": raw_profile
     })
