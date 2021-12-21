@@ -21,11 +21,20 @@ REDIRECT_URI = os.getenv('REDIRECT_URI')
 
 
 def login(request):
-    return render(request, 'sso/login.html')
+    print(request.session.get('session_active'))
+    if request.session.get('session_active') == None:
+        return render(request, 'sso/login.html')
 
+    if request.session.get('session_active') == True:
+        print('this is the session', request.session)
+        return render(request, 'sso/login_successful.html', {
+            "p_profile": request.session.get('p_profile'),
+            "first_name": request.session.get('first_name'),
+            "raw_profile": request.session.get('raw_profile')
+        })
 
+    
 def auth(request):
-
     authorization_url = workos.client.sso.get_authorization_url(
         connection= CONNECTION_ID,
         redirect_uri= REDIRECT_URI,
@@ -38,13 +47,12 @@ def auth_callback(request):
     code = request.GET['code']
     profile = workos.client.sso.get_profile_and_token(code)
     p_profile = profile.to_dict()
-    print(p_profile)
-    first_name = p_profile['profile']['first_name']
-
-    raw_profile = p_profile['profile']
-
-    return render(request, 'sso/login_successful.html', {
-        "p_profile": p_profile,
-        "first_name": first_name,
-        "raw_profile": raw_profile
-    })
+    request.session['p_profile'] = p_profile
+    request.session['first_name'] = p_profile['profile']['first_name']
+    request.session['raw_profile'] = p_profile['profile']
+    request.session['session_active'] = True
+    return redirect('login')
+    
+def logout(request):
+    request.session.clear()
+    return redirect('login')
