@@ -13,8 +13,7 @@ workos.client_id = os.getenv('WORKOS_CLIENT_ID')
 workos.base_api_url = 'http://localhost:8000/' if settings.DEBUG else workos.base_api_url
 
 # Constants
-# Required: Fill in either domain or customer_ID or both, at least one must be populated to generate auth connection.
-# For testing purposes we fitted domain with gmail.com as an example, please edit and add domains as needed for your testing.
+# Required: Fill in CONNECTION_ID for the desired connection from the WorkOS Dashboard
 
 CONNECTION_ID = 'xxx'
 REDIRECT_URI = os.getenv('REDIRECT_URI')
