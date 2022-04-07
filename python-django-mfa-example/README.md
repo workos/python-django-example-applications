@@ -20,7 +20,7 @@ An example Django application demonstrating how to use the [WorkOS MFA API](http
    $ git clone git@github.com:workos/python-django-example-applications.git
    ```
 
-2. Navigate to the Admin Portal example app within the cloned repo.
+2. Navigate to the MFA example app within the cloned repo.
    ```bash
    $ cd python-django-example-applications/python-django-mfa-example
    ````
@@ -43,7 +43,7 @@ An example Django application demonstrating how to use the [WorkOS MFA API](http
    - Your [SSO-specific, WorkOS Client ID](https://dashboard.workos.com/sso/configuration)
    - The redirect URI. For this example, we'll use http://localhost:8000/auth/callback
 
-6. Ensure you're in the root directory for the example app, `python-django-sso-example/`. Create a `.env` file to securely store the environment variables. Open this file with the Nano text editor. (This file is listed in this repo's `.gitignore` file, so your sensitive information will not be checked into version control.)
+6. Ensure you're in the root directory for the example app, `python-django-mfa-example/`. Create a `.env` file to securely store the environment variables. Open this file with the Nano text editor. (This file is listed in this repo's `.gitignore` file, so your sensitive information will not be checked into version control.)
    ```bash
    (env) $ touch .env
    (env) $ nano .env
@@ -68,7 +68,7 @@ An example Django application demonstrating how to use the [WorkOS MFA API](http
    (env) $ echo $WORKOS_CLIENT_ID
    ```
 
-9. Run the Django migrations. Again, ensure you're in the `python-django-sso-example/` directory where the `manange.py` file is.
+9. Run the Django migrations. Again, ensure you're in the `python-django-mfa-example/` directory where the `manange.py` file is.
    ```bash
    (env) $ python3 manage.py migrate
    ```
@@ -83,7 +83,7 @@ An example Django application demonstrating how to use the [WorkOS MFA API](http
    . . .
    ```
 
-10. In `python-django-sso-example/sso/views.py` change the `CONNECTION_ID` string value to the connection ID that you are targeting. This can be found in the WorkOS Dashboard under the Connection Settings. 
+10. In `python-django-sso-example/mfa/views.py` change the `CONNECTION_ID` string value to the connection ID that you are targeting. This can be found in the WorkOS Dashboard under the Connection Settings. 
 
 11. The final setup step is to start the server.
    ```bash
