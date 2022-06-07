@@ -18,6 +18,5 @@ blocks:
           - checkout
           - sem-version python 3.8
           - python -m pip install --upgrade pip
-          - 'pip install -e .[dev]'
           - pip install flake8
           - pip install black
