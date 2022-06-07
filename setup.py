@@ -8,7 +8,7 @@ with open("README.md", "r") as f:
     long_description = f.read()
 
 about = {}
-with open(os.path.join(base_dir, "workos", "__about__.py")) as f:
+with open(os.path.join(base_dir, "python-django-example-applications")) as f:
     exec(f.read(), about)
 
 dev_requirements = [
