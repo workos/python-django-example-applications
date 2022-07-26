@@ -1,5 +1,5 @@
 # python-django-sso-example
-An example Django application demonstrating how to use the [WorkOS Python SDK](https://github.com/workos-inc/workos-python) to authenticate users via SSO.
+An example Django application demonstrating how to use the [WorkOS Python SDK](https://github.com/workos/workos-python) to authenticate users via SSO.
 
 ## Prerequisites
 - Python 3.6+
@@ -10,14 +10,14 @@ An example Django application demonstrating how to use the [WorkOS Python SDK](h
 1. Clone the main git repo for these Python example apps using your preferred secure method (HTTPS or SSH).
    ```bash
    # HTTPS
-   $ git clone https://github.com/workos-inc/python-django-example-applications.git
+   $ git clone https://github.com/workos/python-django-example-applications.git
    ```
 
    or
 
    ```bash
    # SSH
-   $ git clone git@github.com:workos-inc/python-django-example-applications.git
+   $ git clone git@github.com:workos/python-django-example-applications.git
    ```
 
 2. Navigate to the Admin Portal example app within the cloned repo.

@@ -18,7 +18,7 @@ workos.base_api_url = (
 # Constants
 # Required: Fill in CONNECTION_ID for the desired connection from the WorkOS Dashboard
 
-CONNECTION_ID = "conn_01FNYP9FHYPEYN268C3D0RJJ7Z"
+CONNECTION_ID = "xxx"
 REDIRECT_URI = os.getenv("REDIRECT_URI")
 
 
