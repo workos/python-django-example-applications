@@ -1,5 +1,6 @@
 import os
 import workos
+import json
 from workos import client as workos_client
 from workos import passwordless
 from django.conf import settings
@@ -55,6 +56,6 @@ def success(request):
     code = request.GET["code"]
     profile = workos.client.sso.get_profile_and_token(code)
     p_profile = profile.to_dict()
-    raw_profile = p_profile["profile"]
+    raw_profile = json.dumps(p_profile["profile"], indent=2)
 
     return render(request, "magic_link/success.html", {"raw_profile": raw_profile})
