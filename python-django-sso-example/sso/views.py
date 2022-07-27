@@ -1,5 +1,6 @@
 import os
 import workos
+import json
 from django.conf import settings
 from django.shortcuts import redirect, render
 
@@ -34,7 +35,7 @@ def login(request):
             {
                 "p_profile": request.session.get("p_profile"),
                 "first_name": request.session.get("first_name"),
-                "raw_profile": request.session.get("raw_profile"),
+                "raw_profile": json.dumps(request.session.get("raw_profile"), indent=2),
             },
         )
 
