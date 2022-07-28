@@ -28,10 +28,11 @@ def get_home(request):
 def get_directory(request):
     directory_id = request.GET["id"]
     directory = workos.client.directory_sync.get_directory(directory_id)
+    json_directory = json.dumps(workos.client.directory_sync.get_directory(directory_id), indent=2)
     return render(
         request,
         "directory_sync/directory.html",
-        {"directory_id": directory_id, "directory": directory},
+        {"directory_id": directory_id, "directory": directory, "json_directory": json_directory},
     )
 
 
