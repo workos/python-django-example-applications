@@ -85,6 +85,7 @@ def factor_detail(request):
 
     request.session["current_factor"] = fullFactor["id"]
     request.session["current_factor_type"] = fullFactor["type"]
+    print(fullFactor)
     return render(
         request,
         "mfa/factor_detail.html",
