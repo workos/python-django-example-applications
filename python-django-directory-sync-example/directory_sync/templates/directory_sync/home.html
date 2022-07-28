@@ -1,26 +1,24 @@
-
-
 <html>
-    <head>
-      <link rel="stylesheet" href="../../static/css/main.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
-    </head>
-    <body class="container_login">
-        <div class='flex_column'>
-            <div class="flex heading_div">
-                <img src="../../static/images/workos_logo_new.png" alt="workos logo">
-                <div class="heading_text_div">
-                    <h1>WorkOS</h1>
-                </div>
-            </div>
-            
-            <h2>Python Django Directory Sync Example App</h2>
-            <hr style="width:100%">
-            <a href="/webhooks" class="button login_button button_outline">Test Webhooks</a>
-            <hr style="width:100%">
-            {% for i in directories %}
-                <a class="button login_button" href="/directory?id={{i.id}}">{{ i.name }}</a>
-            {% endfor %}            
+
+<head>
+    <link rel="stylesheet" href="../../static/css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+</head>
+
+<body class="container_login">
+    <div class='flex_column'>
+        <div class="flex heading_div">
+            <img src="../../static/images/workos-logo-with-text.png" alt="workos logo">
         </div>
-    </body>
+
+        <h2>Python Django Directory Sync Example App</h2>
+        <hr style="width:100%">
+        <a href="/webhooks" class="button width-95 button-outline">Test Webhooks</a>
+        <hr style="width:100%">
+        {% for i in directories %}
+        <a class="button width-95" href="/directory?id={{i.id}}">{{ i.name }}</a>
+        {% endfor %}
+    </div>
+</body>
+
 </html>
