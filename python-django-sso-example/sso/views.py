@@ -44,7 +44,7 @@ def auth(request):
     authorization_url = workos.client.sso.get_authorization_url(
         connection=CONNECTION_ID,
         redirect_uri=REDIRECT_URI,
-        state={},
+        state="state_can_be_any_string",
     )
     return redirect(authorization_url)
 
