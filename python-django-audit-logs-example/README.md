@@ -22,7 +22,7 @@ An example Django application demonstrating how to use the [WorkOS Python SDK](h
    $ git clone git@github.com:workos/python-django-example-applications.git
    ```
 
-2. Navigate to the Admin Portal example app within the cloned repo.
+2. Navigate to the Audit Logs example app within the cloned repo.
 
    ```bash
    $ cd python-django-example-applications/python-django-audit-logs-example
