@@ -18,6 +18,15 @@
         {% for i in directories %}
         <a class="button width-95" href="/directory?id={{i.id}}">{{ i.name }}</a>
         {% endfor %}
+        <hr style="width:100%">
+        <div class="flex">
+            {% if after %}
+                <a href="/?after={{after}}"><button class="button button-outline">Previous</button></a>
+            {% endif %}
+            {% if before %}
+                <a href="/?before={{before}}"><button class="button button-outline">Next</button></a>
+            {% endif %}
+        </div>
     </div>
 </body>
 

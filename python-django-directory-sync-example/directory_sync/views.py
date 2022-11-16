@@ -20,19 +20,35 @@ workos.base_api_url = (
 
 
 def get_home(request):
-    directories = workos.client.directory_sync.list_directories()
+    before = request.GET.get("before")
+    after = request.GET.get("after")
+    directories = workos.client.directory_sync.list_directories(
+        limit=5, before=before, after=after
+    )
+    before = directories["listMetadata"]["before"]
+    after = directories["listMetadata"]["after"]
     directories = directories["data"]
-    return render(request, "directory_sync/home.html", {"directories": directories})
+    return render(
+        request,
+        "directory_sync/home.html",
+        {"directories": directories, "before": before, "after": after},
+    )
 
 
 def get_directory(request):
     directory_id = request.GET["id"]
     directory = workos.client.directory_sync.get_directory(directory_id)
-    json_directory = json.dumps(workos.client.directory_sync.get_directory(directory_id), indent=2)
+    json_directory = json.dumps(
+        workos.client.directory_sync.get_directory(directory_id), indent=2
+    )
     return render(
         request,
         "directory_sync/directory.html",
-        {"directory_id": directory_id, "directory": directory, "json_directory": json_directory},
+        {
+            "directory_id": directory_id,
+            "directory": directory,
+            "json_directory": json_directory,
+        },
     )
 
 
