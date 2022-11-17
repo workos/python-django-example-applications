@@ -67,14 +67,11 @@ def get_directory_groups(request):
 @csrf_exempt
 def webhooks(request):
     if request.body:
-        dict_payload = json.loads(request.body)
-        payload = json.dumps(dict_payload)
+        payload = request.body
         sig_header = request.headers.get("WorkOS-Signature")
-
         response = workos.client.webhooks.verify_event(
             payload=payload, sig_header=sig_header, secret=os.getenv("WEBHOOKS_SECRET")
         )
-
         message = json.dumps(response)
         sio.emit("webhook_received", message)
 
