@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "directory_sync.apps.DirectorySyncConfig",
+    "django_feather",
 ]
 
 MIDDLEWARE = [
