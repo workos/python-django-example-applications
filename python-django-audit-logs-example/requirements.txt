@@ -9,3 +9,4 @@ sqlparse==0.4.2
 urllib3==1.26.5
 workos>=1.21.0
 python-dotenv
+django-feather==0.3.0

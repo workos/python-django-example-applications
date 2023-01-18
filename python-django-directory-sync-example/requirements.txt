@@ -15,4 +15,4 @@ greenlet==0.4.17
 python-engineio
 python-socketio
 six==1.10.0
-django-feather=0.3.0
+django-feather==0.3.0

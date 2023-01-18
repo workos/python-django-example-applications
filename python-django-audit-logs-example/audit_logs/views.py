@@ -32,7 +32,19 @@ REDIRECT_URI = os.getenv("REDIRECT_URI")
 
 def login(request):
     if request.session.get("session_active") == None:
-        return render(request, "audit_logs/login.html")
+        before = request.GET.get("before")
+        after = request.GET.get("after")
+        organizations = workos.client.organizations.list_organizations(
+            limit=5, before=before, after=after
+        )
+        before = organizations["listMetadata"]["before"]
+        after = organizations["listMetadata"]["after"]
+        organizations = organizations["data"]
+        return render(
+            request,
+            "audit_logs/login.html",
+            {"organizations": organizations, "before": before, "after": after},
+        )
 
     if request.session.get("session_active") == True:
         return render(
@@ -47,7 +59,7 @@ def login(request):
 
 @csrf_exempt
 def set_org(request):
-    organization_id = request.POST["org"]
+    organization_id = request.GET["id"]
     request.session["organization_id"] = organization_id
     organization_set = workos.client.audit_logs.create_event(
         organization_id, user_organization_set
