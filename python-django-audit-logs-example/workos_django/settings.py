@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "audit_logs.apps.AuditLogsConfig",
+    "django_feather",
 ]
 
 MIDDLEWARE = [

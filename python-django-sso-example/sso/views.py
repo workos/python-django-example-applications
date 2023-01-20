@@ -23,12 +23,10 @@ REDIRECT_URI = os.getenv("REDIRECT_URI")
 
 
 def login(request):
-    print(request.session.get("session_active"))
     if request.session.get("session_active") == None:
         return render(request, "sso/login.html")
 
     if request.session.get("session_active") == True:
-        print("this is the session", request.session)
         return render(
             request,
             "sso/login_successful.html",

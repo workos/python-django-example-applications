@@ -1,6 +1,5 @@
 import os
 import json
-from django.http.response import HttpResponse
 import workos
 from django.conf import settings
 from django.shortcuts import render
