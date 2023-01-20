@@ -146,8 +146,7 @@ def get_events(request):
             targets = request.POST["filter-targets"]
         else:
             targets = None
-        print(request.POST["range-start"])
-        print(request.POST["range-end"])
+
         try:
             create_export_response = workos.client.audit_logs.create_export(
                 organization=organization_id,
@@ -174,7 +173,6 @@ def events(request):
     link = workos.client.portal.generate_link(
         organization=request.session["organization_id"], intent="audit_logs"
     )
-    print(link)
     return redirect(link["link"])
 
 

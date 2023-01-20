@@ -1,6 +1,5 @@
 import os
 import json
-from django.http.response import HttpResponse
 import workos
 from django.conf import settings
 from django.shortcuts import render
@@ -67,9 +66,6 @@ def get_directory_groups(request):
 @csrf_exempt
 def webhooks(request):
     if request.body:
-        print("jjcode")
-        print(json.dumps(request.body))
-        print(type(json.dumps(request.body)))
         payload = request.body
         sig_header = request.headers.get("WorkOS-Signature")
         response = workos.client.webhooks.verify_event(
