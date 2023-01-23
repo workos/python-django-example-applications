@@ -171,7 +171,7 @@ def get_events(request):
 @csrf_exempt
 def events(request):
     link = workos.client.portal.generate_link(
-        organization=request.session["organization_id"], intent="audit_logs"
+        organization=request.session["organization_id"], intent=request.GET['intent']
     )
     return redirect(link["link"])
 
