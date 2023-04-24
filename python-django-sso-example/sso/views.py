@@ -41,11 +41,10 @@ def login(request):
 
 def auth(request):
 
-    login_type = request.form.get("login_method")
+    login_type = request.POST["login_method"]
+    params = {"redirect_uri": REDIRECT_URI, "state": {}}
 
-    params = {"redirect_uri": reverse("auth_callback", _external=True), "state": {}}
-
-    if login_type == "saml":        
+    if login_type == "saml":
         params["organization"] = CUSTOMER_ORGANIZATION_ID
     else:
         params["provider"] = login_type
