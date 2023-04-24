@@ -3,6 +3,7 @@ import workos
 import json
 from django.conf import settings
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 
 workos.api_key = os.getenv("WORKOS_API_KEY")
@@ -16,9 +17,9 @@ workos.base_api_url = (
 )
 
 # Constants
-# Required: Fill in CONNECTION_ID for the desired connection from the WorkOS Dashboard
+# Required: Fill in CUSTOMER_ORGANIZATION_ID for the desired organization from the WorkOS Dashboard
 
-CONNECTION_ID = "xxx"
+CUSTOMER_ORGANIZATION_ID = "xxx"
 REDIRECT_URI = os.getenv("REDIRECT_URI")
 
 
@@ -39,11 +40,17 @@ def login(request):
 
 
 def auth(request):
-    authorization_url = workos.client.sso.get_authorization_url(
-        connection=CONNECTION_ID,
-        redirect_uri=REDIRECT_URI,
-        state="state_can_be_any_string",
-    )
+
+    login_type = request.POST["login_method"]
+    params = {"redirect_uri": REDIRECT_URI, "state": {}}
+
+    if login_type == "saml":
+        params["organization"] = CUSTOMER_ORGANIZATION_ID
+    else:
+        params["provider"] = login_type
+
+    authorization_url = workos.client.sso.get_authorization_url(**params)
+
     return redirect(authorization_url)
 
 
