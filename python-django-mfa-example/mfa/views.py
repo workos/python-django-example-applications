@@ -70,6 +70,24 @@ def enroll_factor(request):
     return redirect("list_factors")
 
 
+@csrf_exempt
+def enroll_sms_factor(request):
+    factor_type = request.POST["type"]
+    phone_number = request.POST["phone_number"]
+
+    new_factor = workos.client.mfa.enroll_factor(
+        type=factor_type,
+        phone_number=phone_number
+    )
+    
+    if request.session.get("factor_list"):
+            request.session["factor_list"].append(new_factor)
+    else:
+        request.session["factor_list"] = [new_factor]
+
+    return redirect("list_factors")
+
+
 def factor_detail(request):
     factorId = request.GET["id"]
     for factor in request.session["factor_list"]:
