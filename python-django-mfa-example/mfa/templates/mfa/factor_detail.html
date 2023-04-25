@@ -64,13 +64,6 @@
                                 <li>Created At: <code>{{factor.created_at}}</code></li>
                                 <li class="even">Updated At: <code>{{factor.updated_at}}</code></li>
                             </ul>
-
-
-                            {% if factor.type == 'totp' %}
-                            <div class="qr_div">
-                                <img class="qr_code" src="{{ qr_code }}" alt="qr_code">
-                            </div>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
