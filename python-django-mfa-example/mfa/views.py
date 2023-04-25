@@ -3,6 +3,8 @@ import workos
 from django.conf import settings
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
 
 
 workos.api_key = os.getenv("WORKOS_API_KEY")
@@ -86,6 +88,24 @@ def enroll_sms_factor(request):
         request.session["factor_list"] = [new_factor]
 
     return redirect("list_factors")
+
+
+@csrf_exempt
+def enroll_totp_factor(request):
+    request_data = request.body
+    json_data = json.loads(request.body.decode('utf-8'))
+
+    totp_type = json_data['type']
+    totp_issuer = json_data['issuer']
+    totp_user = json_data['user']
+
+    print(totp_issuer)
+    print(totp_user)
+    print(totp_type)
+
+
+    response_data = {'message': 'Success'}
+    return JsonResponse(response_data, status=200)
 
 
 def factor_detail(request):

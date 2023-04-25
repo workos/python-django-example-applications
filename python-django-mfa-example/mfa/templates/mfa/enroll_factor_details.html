@@ -54,8 +54,8 @@
                                         placeholder="Phone Number" required>
                                 </div>
                                 <div class="flex mt-20">
-                                    <button type="submit" name="type" value="sms"
-                                        class="button button-outline button-sm">Enroll New
+                                    <button type="submit" name="type" value="sms" id="sms-factor-submit-btn"
+                                        class="button button-outline button-sm" disabled>Enroll New
                                         Factor</button>
                                 </div>
                             </div>
@@ -64,8 +64,7 @@
 
                     <div class="factor_card">
                         <h2>Enroll TOTP Factor</h2>
-                        <form method="POST" action="{% url 'enroll_factor' %}">
-                            {% csrf_token %}
+                        <div>
                             <div class="flex-column">
                                 <div class="flex mt-20">
                                     <input class="text_input mt-20" type="text" id="totp_issuer" name="totp_issuer"
@@ -76,11 +75,11 @@
                                         placeholder="User Email" required>
                                 </div>
                                 <div class="flex mt-20">
-                                    <button type="submit" name="type" value="totp"
+                                    <button value="totp" id="totp-factor-submit-btn"
                                         class="button button-outline button-sm">Enroll New Factor</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
 
                 </div>
@@ -88,7 +87,57 @@
 
         </div>
     </div>
-
+    <div class="overlay" id="overlay" style="display: none;">
+        <div class="modal" id="modal">
+            <button id="close-modal-btn">I've scanned a QR code</button>
+        </div>
+    </div>
 </body>
+
+<script>
+    const phoneNumber = document.getElementById("phone_number")
+    const totpIssuer = document.getElementById("totp_issuer")
+    const totpUser = document.getElementById("totp_user") 
+    const smsSubmitButton = document.getElementById("sms-factor-submit-btn")
+    const totpSubmitButton = document.getElementById("totp-factor-submit-btn")
+    const closeModalBtn = document.getElementById("close-modal-btn")
+    const overlay = document.getElementById("overlay")
+    const modal = document.getElementById("modal")
+    phoneNumber.addEventListener("input", validateSmsForm)
+    totpIssuer.addEventListener("input", validateTotpForm)
+    totpUser.addEventListener("input", validateTotpForm)
+    function validateSmsForm() {
+        if (phoneNumber.value.trim() !== "") {
+            smsSubmitButton.disabled = false
+        } else {
+            smsSubmitButton.disabled = true
+        }
+    }
+    function validateTotpForm() {
+        if (totpIssuer.value.trim() !== "" && totpUser.value.trim() !== "") {
+            totpSubmitButton.disabled = false
+        } else {
+            totpSubmitButton.disabled = true
+        }
+    }
+    totpSubmitButton.addEventListener("click", function() {
+        fetch('/enroll_totp_factor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                type: 'totp',
+                issuer: totpIssuer.value,
+                user: totpUser.value,
+            })
+        })
+            .then(response => response.json())
+            .then(response => console.log(response))
+    })
+    closeModalBtn.addEventListener("click", function() {
+        overlay.style.display = "none"
+    })
+</script>
 
 </html>
