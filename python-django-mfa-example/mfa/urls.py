@@ -9,7 +9,6 @@ urlpatterns = [
         views.enroll_factor_details,
         name="enroll_factor_details",
     ),
-    path("enroll_factor", views.enroll_factor, name="enroll_factor"),
     path("enroll_sms_factor", views.enroll_sms_factor, name="enroll_sms_factor"),
     path("enroll_totp_factor", views.enroll_totp_factor, name="enroll_totp_factor"),
     path("factor_detail", views.factor_detail, name="factor_detail"),
