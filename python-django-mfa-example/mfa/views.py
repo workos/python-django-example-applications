@@ -55,16 +55,18 @@ def enroll_sms_factor(request):
     else:
         request.session["factor_list"] = [new_factor]
 
+    request.session.save()
+
     return redirect("list_factors")
 
 
 @csrf_exempt
 def enroll_totp_factor(request):
-    data = json.loads(request.body.decode('utf-8'))
+    data = json.loads(request.body.decode("utf-8"))
 
-    type = data['type']
-    issuer = data['issuer']
-    user = data['user']
+    type = data["type"]
+    issuer = data["issuer"]
+    user = data["user"]
 
     new_factor = workos.client.mfa.enroll_factor(
         type=type,
@@ -77,7 +79,9 @@ def enroll_totp_factor(request):
     else:
         request.session["factor_list"] = [new_factor]
 
-    return HttpResponse(new_factor['totp']['qr_code'])
+    request.session.save()
+
+    return HttpResponse(new_factor["totp"]["qr_code"])
 
 
 def factor_detail(request):
