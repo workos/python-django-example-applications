@@ -3,6 +3,8 @@ import workos
 from django.conf import settings
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import HttpResponse
 
 
 workos.api_key = os.getenv("WORKOS_API_KEY")
@@ -39,35 +41,47 @@ def enroll_factor_details(request):
 
 
 @csrf_exempt
-def enroll_factor(request):
+def enroll_sms_factor(request):
     factor_type = request.POST["type"]
+    phone_number = request.POST["phone_number"]
 
-    if factor_type == "sms":
-        factor_type = "sms"
-        phone_number = request.POST["phone_number"]
-        new_factor = workos.client.mfa.enroll_factor(
-            type=factor_type, phone_number=phone_number
-        )
-        if request.session.get("factor_list"):
+    new_factor = workos.client.mfa.enroll_factor(
+        type=factor_type,
+        phone_number=phone_number
+    )
+    
+    if request.session.get("factor_list"):
             request.session["factor_list"].append(new_factor)
-        else:
-            request.session["factor_list"] = [new_factor]
+    else:
+        request.session["factor_list"] = [new_factor]
 
-    if factor_type == "totp":
-        factor_type = "totp"
-        totp_issuer = request.POST["totp_issuer"]
-        totp_user = request.POST["totp_user"]
-        new_factor = workos.client.mfa.enroll_factor(
-            type=factor_type, totp_issuer=totp_issuer, totp_user=totp_user
-        )
-        if request.session.get("factor_list") != None:
-            new_session_list = request.session["factor_list"]
-            new_session_list.append(new_factor)
-            request.session["factor_list"] = new_session_list
-        else:
-            request.session["factor_list"] = [new_factor]
+    request.session.save()
 
     return redirect("list_factors")
+
+
+@csrf_exempt
+def enroll_totp_factor(request):
+    data = json.loads(request.body.decode("utf-8"))
+
+    type = data["type"]
+    issuer = data["issuer"]
+    user = data["user"]
+
+    new_factor = workos.client.mfa.enroll_factor(
+        type=type,
+        totp_issuer=issuer,
+        totp_user=user
+    )
+
+    if request.session.get("factor_list"):
+            request.session["factor_list"].append(new_factor)
+    else:
+        request.session["factor_list"] = [new_factor]
+
+    request.session.save()
+
+    return HttpResponse(new_factor["totp"]["qr_code"])
 
 
 def factor_detail(request):
@@ -80,9 +94,6 @@ def factor_detail(request):
         if factor["type"] == "sms":
             phone_number = factor["sms"]["phone_number"]
 
-        if factor["type"] == "totp":
-            request.session["current_factor_qr"] = factor["totp"]["qr_code"]
-
     request.session["current_factor"] = fullFactor["id"]
     request.session["current_factor_type"] = fullFactor["type"]
 
@@ -92,7 +103,6 @@ def factor_detail(request):
         {
             "factor": fullFactor,
             "phone_number": phone_number,
-            "qr_code": request.session["current_factor_qr"],
         },
     )
 
