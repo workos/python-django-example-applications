@@ -10,7 +10,7 @@
     <div class="logged_in_nav">
         <div class="flex">
             <div>
-                <img src="../static/images/workos-logo-with-text.png" alt="workos logo">
+                <img src="../../static/images/workos-logo-with-text.png" alt="workos logo">
             </div>
         </div>
         <div>
@@ -22,60 +22,47 @@
             <a href="https://workos.com/" target="_blank"><button class='button button-outline'>WorkOS</button></a>
         </div>
     </div>
-    <div class='flex'>
-        <div class="logged_in_div_left">
-            <div class="title-text">
-                <h1>Your app,</h1>
-                <h2 class="home-hero-gradient">Enterprise Ready</h2>
-            </div>
-            <div class="title-subtext">
-                <p>Start selling to enterprise customers with just a few lines of code.</p>
-                <p>Implement features like single sign-on in minutes instead of months.</p>
-            </div>
-            <div class="flex success-buttons">
-                <a href="https://workos.com/signup" target="_blank"><button class='button'>Get Started</button></a>
-                <a href="mailto:sales@workos.com?subject=WorkOS Sales Inquiry" target="_blank"><button
-                        class='button button-outline sales-button'>Contact
-                        Sales</button></a>
-            </div>
-        </div>
+    <div class='flex'>    
         <div class="logged_in_div_right">
             <div class="flex_column">
                 <div class="flex space_between ">
-                    <div class="factor_card">
+                    <div class="factor_card height-250px">
                         <h2>Enroll SMS Factor</h2>
                         <form method="POST" action="{% url 'enroll_sms_factor' %}">
-                            <div class="flex-column">
-                                <div class="flex mt-20">
-                                    <input class="text_input mt-20" type="text" id="phone_number" name="phone_number"
+                            <div class="flex">
+                                <div class="flex">
+                                    <input class="text_input" type="text" id="phone_number" name="phone_number"
                                         placeholder="Phone Number">
                                 </div>
-                                <div class="flex mt-20">
-                                    <button type="submit" name="type" value="sms" id="sms-factor-submit-btn"
-                                        class="button button-outline button-sm" disabled>Enroll New
-                                        Factor</button>
-                                </div>
+                            </div>
+                            <div class="flex">
+                                <div>
+                                    <button type="submit" name="type" value="sms" id="sms-factor-submit-btn" 
+                                    class="button button-outline button-sm" disabled>Enroll New
+                                    Factor</button>
+                                </div>                                
                             </div>
                         </form>
                     </div>
 
-                    <div class="factor_card">
+                    <div class="factor_card height-250px">
                         <h2>Enroll TOTP Factor</h2>
                         <div>
                             <div class="flex-column">
-                                <div class="flex mt-20">
-                                    <input class="text_input mt-20" type="text" id="totp_issuer" name="totp_issuer"
+                                <div class="flex">
+                                    <input class="text_input" type="text" id="totp_issuer" name="totp_issuer"
                                         placeholder="TOTP Issuer">
                                 </div>
-                                <div class="flex mt-10">
-                                    <input class="text_input text_input_2" type="text" id="totp_user" name="totp_user"
+                                <div class="flex">
+                                    <input class="text_input" type="text" id="totp_user" name="totp_user"
                                         placeholder="User Email">
                                 </div>
-                                <div class="flex mt-20">
-                                    <button value="totp" id="totp-factor-submit-btn"
-                                        class="button button-outline button-sm" disabled>Enroll New Factor</button>
-                                </div>
                             </div>
+                            <div class="flex">
+                                <div>
+                                    <button value="totp" id="totp-factor-submit-btn" class="button button-outline button-sm" disabled>Enroll New Factor</button>
+                                </div>
+                            </div>                            
                         </div>
                     </div>
 

@@ -11,7 +11,7 @@
     <div class="logged_in_nav">
         <div class="flex">
             <div>
-                <img src="../static/images/workos-logo-with-text.png" alt="workos logo">
+                <img src="../../static/images/workos-logo-with-text.png" alt="workos logo">
             </div>
         </div>
         <div>
@@ -24,67 +24,41 @@
         </div>
     </div>
     <div class='flex'>
-        <div class="logged_in_div_left">
-            <div class="title-text">
-                <h1>Your app,</h1>
-                <h2 class="home-hero-gradient">Enterprise Ready</h2>
-            </div>
-            <div class="title-subtext">
-                <p>Start selling to enterprise customers with just a few lines of code.</p>
-                <p>Implement features like single sign-on in minutes instead of months.</p>
-            </div>
-            <div class="flex success-buttons">
-                <a href="https://workos.com/signup" target="_blank"><button class='button'>Get Started</button></a>
-                <a href="mailto:sales@workos.com?subject=WorkOS Sales Inquiry" target="_blank"><button
-                        class='button button-outline sales-button'>Contact
-                        Sales</button></a>
-            </div>
-        </div>
+        
         <div class="logged_in_div_right">
             <div class="flex_column">
                 <div class="flex">
                     <div class="flex-column">
                         <div>
-                            <h2>Factor Details</h2>
+                            <h2>ID: {{factor.id}}</h2>
                         </div>
-                        <div class=" flex space-evenly text_box">
-                            <ul>
-                                <li class="even">Factor ID: <code>{{factor.id}}</code></li>
-                                <li>Type: <code>{{factor.type}}</code></li>
-                                {% if factor.type == 'totp' %}
-                                <li class="even">User: <code>{{factor.totp.user}}</code></li>
-                                {% endif %}
-                                {% if factor.type == 'sms' %}
-                                <li class="even">Phone Number: <code>{{phone_number}}</code></li>
-                                {% endif %}
-
-                                <li>Created At: <code>{{factor.created_at}}</code></li>
-                                <li class="even">Updated At: <code>{{factor.updated_at}}</code></li>
-                            </ul>
+                        <div>
+                            <p>Type: <code>{{factor.type}}</code></p>
+                            <p>Phone Number: <code>{{phone_number}}</code></p>
+                            <p>Created At: <code>{{factor.created_at}}</code></p>
+                            <p>Updated At: <code>{{factor.updated_at}}</code></p>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex-column">
+                <div class="flex">
                     <div>
                         <form method="POST" action="{% url 'challenge_factor' %}">
-                            <div class='flex_column'>
-                                {% if factor.type == 'sms' %}
+                            {% if factor.type == 'sms' %}
+                            <div class='flex width-587px space-between'>                                
                                 <div>
-                                    <input type="text" id="sms_message" name="sms_message" class="text_input"
-                                        placeholder="{% verbatim %}SMS Message + {{code}}{% endverbatim %}">
-                                </div>
-                                {% endif %}
-                                <div class="flex space-evenly width-20vw mt-10">
-                                    <div>
-                                        <button type=" submit" class="button">Challenge Factor</button>
-                                    </div>
-                                    <div>
-                                        <a href="javascript:history.back()"><button type="button"
-                                                class='button button-outline'>Back</button></a>
-                                    </div>
+                                    <input type="text" class="text_input width-350px" id="sms_message" name="sms_message" class="text_input"
+                                        placeholder="Custom SMS Message Input {{code}}">
+                                </div>                                
+                                <div>
+                                    <button type="submit" class="button width-175px">Challenge Factor</button>
                                 </div>
                             </div>
+                            {% else %}
+                            <div class='flex width-587px'>                                
+                                <button type="submit" class="button width-175px">Challenge Factor</button>
+                            </div>                            
+                            {% endif %}
                         </form>
 
                     </div>
