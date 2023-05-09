@@ -24,9 +24,9 @@ def login(request):
 
 def passwordless_auth(request):
     email = request.POST["email"]
-
+    redirect_uri = "http://localhost:8000/success"
     session = workos_client.passwordless.create_session(
-        {"email": email, "type": "MagicLink"}
+        {"email": email, "type": "MagicLink", "redirect_uri": redirect_uri}
     )
     workos_client.passwordless.send_session(session["id"])
 
