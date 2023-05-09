@@ -53,13 +53,14 @@ def get_directory(request):
 
 def get_directory_users(request):
     directory_id = request.GET["id"]
-    users = workos.client.directory_sync.list_users(directory=directory_id)
+    users = workos.client.directory_sync.list_users(directory=directory_id, limit=100)
     return render(request, "directory_sync/users.html", {"users": users})
 
 
 def get_directory_groups(request):
     directory_id = request.GET["id"]
-    groups = workos.client.directory_sync.list_groups(directory=directory_id)
+    groups = workos.client.directory_sync.list_groups(directory=directory_id, limit=100)
+    print(groups)
     return render(request, "directory_sync/groups.html", {"groups": groups})
 
 
