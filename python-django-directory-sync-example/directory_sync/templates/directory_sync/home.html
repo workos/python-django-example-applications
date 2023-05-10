@@ -1,77 +1,85 @@
 {% load icon %}
 <html>
+  <head>
+    <link rel="stylesheet" href="../../static/css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inter"
+    />
+  </head>
 
-<head>
-    <link rel="stylesheet" href="../../static/css/main.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
-</head>
-
-<body>
+  <body>
     <div class="logged_in_nav">
-        <div class="flex space-between width-100vw">
-            <div><p>Python Django Directory Sync Example App</p></div>
-            <div class="flex">
-                <div>
-                    <a href="https://workos.com/docs" target="_blank"><button class='button nav-item'>Documentation</button></a>
-                </div>
-                <div>
-                    <a href="https://workos.com/docs/reference" target="_blank"><button class='button nav-item'>API
-                        Reference</button></a>
-                </div>
-                <div>
-                    <a href="https://workos.com/blog" target="_blank"><button
-                        class='button nav-item blog-nav-button'>Blog</button></a>
-                </div>
-                <div>
-                    <a href="https://workos.com/" target="_blank">
-                        <img class="nav-image" src="../../static/images/workos_favicon.png" alt="link to workos.com">
-                    </a> 
-                </div>
-            </div>
-            
+      <div class="flex">
+        <div>
+          <img
+            src="../../static/images/workos-logo-with-text.png"
+            alt="workos logo"
+          />
         </div>
+      </div>
+      <div>
+        <a href="https://workos.com/docs" target="_blank"
+          ><button class="button nav-item">Documentation</button></a
+        >
+        <a href="https://workos.com/docs/reference" target="_blank"
+          ><button class="button nav-item">API Reference</button></a
+        >
+        <a href="https://workos.com/blog" target="_blank"
+          ><button class="button nav-item blog-nav-button">Blog</button></a
+        >
+        <a href="https://workos.com/" target="_blank"
+          ><button class="button button-outline">WorkOS</button></a
+        >
+      </div>
     </div>
-    <div class='flex_column  height-70vh'>
-        <div class="flex width-70vw space-between">
-            <div>
-                <h2>Select a Directory</h2>
-            </div>
-            <div>
-                <a href="/webhooks" class="button button-outline">Test Webhooks</a>
-            </div>
+    <div class="flex_column height-70vh">
+      <div class="flex width-70vw space-between">
+        <div>
+          <h2>Select a Directory</h2>
         </div>
-     
-        <div class='flex_column card width-65vw'>                
-            <div>
-                <table class="width-65vw">
-                    <tr>
-                      <th>Organization</th>
-                      <th>ID</th>
-                      <th>View Settings</th>
-                    </tr>
-                    {% for i in directories %}            
-                      <tr>
-                        <td>{{ i.name }}</td>
-                        <td>{{ i.id }}</td>                
-                        <td><a class="button button-outline" href="/directory?id={{i.id}}">{% icon "settings" %}</a></td>
-                      </tr>
-                    {% endfor %}                    
-                  </table>   
-            </div>                     
-            <div class="flex flex-end width-65vw">
-                {% if after %}
-                <div>
-                    <a href="/?after={{after}}"><button class="button page-title">Previous</button></a>
-                </div>                        
-                {% endif %}
-                {% if before %}
-                <div>
-                    <a href="/?before={{before}}"><button class="button page-title">Next</button></a>
-                </div>                    
-                {% endif %}            
-            </div>    
+        <div>
+          <a href="/webhooks" class="button button-outline">Test Webhooks</a>
         </div>
-    </div>
-</body>
+      </div>
 
+      <div class="flex_column card width-65vw">
+        <div>
+          <table class="width-65vw">
+            <tr>
+              <th>Organization</th>
+              <th>ID</th>
+              <th>View Settings</th>
+            </tr>
+            {% for i in directories %}
+            <tr>
+              <td>{{ i.name }}</td>
+              <td>{{ i.id }}</td>
+              <td>
+                <a class="button button-outline" href="/directory?id={{i.id}}"
+                  >{% icon "settings" %}</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="flex flex-end width-65vw">
+          {% if after %}
+          <div>
+            <a href="/?after={{after}}"
+              ><button class="button page-title">Previous</button></a
+            >
+          </div>
+          {% endif %} {% if before %}
+          <div>
+            <a href="/?before={{before}}"
+              ><button class="button page-title">Next</button></a
+            >
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

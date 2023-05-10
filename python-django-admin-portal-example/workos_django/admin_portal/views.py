@@ -51,13 +51,7 @@ def provision_enterprise(request):
     return render(request, "admin_portal/org_logged_in.html")
 
 
-def sso_admin_portal(request):
-    portal_link = workos_client.portal.generate_link(organization=org_id, intent="sso")
-    return redirect(portal_link["link"])
-
-
-def dsync_admin_portal(request):
-    portal_link = workos_client.portal.generate_link(
-        organization=org_id, intent="dsync"
-    )
+def launch_admin_portal(request):
+    intent = request.GET.get("intent")
+    portal_link = workos_client.portal.generate_link(organization=org_id, intent=intent)
     return redirect(portal_link["link"])

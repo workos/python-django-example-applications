@@ -7,5 +7,6 @@ pytz==2021.1
 requests==2.25.1
 sqlparse==0.4.2
 urllib3==1.26.5
-workos>=1.21.0
+workos>=1.23.0
 python-dotenv
+django-feather==0.3.0

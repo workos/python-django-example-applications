@@ -46,12 +46,11 @@ def enroll_sms_factor(request):
     phone_number = request.POST["phone_number"]
 
     new_factor = workos.client.mfa.enroll_factor(
-        type=factor_type,
-        phone_number=phone_number
+        type=factor_type, phone_number=phone_number
     )
-    
+
     if request.session.get("factor_list"):
-            request.session["factor_list"].append(new_factor)
+        request.session["factor_list"].append(new_factor)
     else:
         request.session["factor_list"] = [new_factor]
 
@@ -69,13 +68,11 @@ def enroll_totp_factor(request):
     user = data["user"]
 
     new_factor = workos.client.mfa.enroll_factor(
-        type=type,
-        totp_issuer=issuer,
-        totp_user=user
+        type=type, totp_issuer=issuer, totp_user=user
     )
 
     if request.session.get("factor_list"):
-            request.session["factor_list"].append(new_factor)
+        request.session["factor_list"].append(new_factor)
     else:
         request.session["factor_list"] = [new_factor]
 
@@ -128,7 +125,14 @@ def challenge_factor(request):
 
 @csrf_exempt
 def verify_factor(request):
-    code = request.POST["code"]
+    def buildCode(code_values):
+        code = ""
+        for x in code_values.values():
+            code += x
+        return code
+
+    code = buildCode(request.POST)
+
     challenge_id = request.session["challenge_id"]
     verify_factor = workos.client.mfa.verify_factor(
         authentication_challenge_id=challenge_id,
