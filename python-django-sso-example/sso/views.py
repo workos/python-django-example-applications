@@ -12,9 +12,8 @@ workos.client_id = os.getenv("WORKOS_CLIENT_ID")
 # In workos_django/settings.py, you can use DEBUG=True for local development,
 # but you must use DEBUG=False in order to test the full authentication flow
 # with the WorkOS API.
-workos.base_api_url = (
-    "http://localhost:8000/" if settings.DEBUG else workos.base_api_url
-)
+if settings.DEBUG:
+    os.environ["WORKOS_API_BASE_URL"] = "http://localhost:8000/"
 
 # Constants
 # Required: Fill in CUSTOMER_ORGANIZATION_ID for the desired organization from the WorkOS Dashboard
