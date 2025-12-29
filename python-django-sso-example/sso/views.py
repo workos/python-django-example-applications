@@ -45,7 +45,7 @@ def auth(request):
     params = {"redirect_uri": REDIRECT_URI, "state": {}}
 
     if login_type == "saml":
-        params["organization"] = CUSTOMER_ORGANIZATION_ID
+        params["organization_id"] = CUSTOMER_ORGANIZATION_ID
     else:
         params["provider"] = login_type
 
