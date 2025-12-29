@@ -55,7 +55,7 @@ class SSOViewTests(TestCase):
         mock_client = MagicMock()
         mock_client.sso = mock_sso
         
-        with patch.object(views.workos, "client", mock_client):
+        with patch.object(views, "workos_client", mock_client):
             response = self.client.post(
                 reverse("auth"),
                 {"login_method": "saml"},
@@ -68,7 +68,7 @@ class SSOViewTests(TestCase):
             self.assertIn("redirect_uri", call_args.kwargs)
             self.assertIn("state", call_args.kwargs)
             self.assertIn("organization_id", call_args.kwargs)
-            self.assertEqual(call_args.kwargs["organization_id"], "xxx")
+            self.assertEqual(call_args.kwargs["organization_id"], views.CUSTOMER_ORGANIZATION_ID)
             self.assertNotIn("provider", call_args.kwargs)
 
             # Verify redirect response
@@ -85,7 +85,7 @@ class SSOViewTests(TestCase):
         mock_client = MagicMock()
         mock_client.sso = mock_sso
         
-        with patch.object(views.workos, "client", mock_client):
+        with patch.object(views, "workos_client", mock_client):
             response = self.client.post(
                 reverse("auth"),
                 {"login_method": "google"},
@@ -107,14 +107,15 @@ class SSOViewTests(TestCase):
 
     def test_auth_callback_success(self):
         """Test auth_callback view with valid code"""
-        # Mock the profile response
+        # Mock the profile response - in SDK v5+, ProfileAndToken uses .dict() method
         mock_profile = MagicMock()
-        mock_profile.to_dict.return_value = {
+        mock_profile.dict.return_value = {
             "profile": {
                 "first_name": "John",
                 "last_name": "Doe",
                 "email": "john.doe@example.com"
-            }
+            },
+            "access_token": "test_token"
         }
         
         # Create a mock sso object
@@ -125,7 +126,7 @@ class SSOViewTests(TestCase):
         mock_client = MagicMock()
         mock_client.sso = mock_sso
         
-        with patch.object(views.workos, "client", mock_client):
+        with patch.object(views, "workos_client", mock_client):
             response = self.client.get(
                 reverse("auth_callback"),
                 {"code": "test_auth_code"},
@@ -154,10 +155,13 @@ class SSOViewTests(TestCase):
         mock_client = MagicMock()
         mock_client.sso = mock_sso
         
-        # This should raise a KeyError or return an error
-        with patch.object(views.workos, "client", mock_client):
-            with self.assertRaises(KeyError):
-                self.client.get(reverse("auth_callback"))
+        # This should render login page with error message (not raise KeyError)
+        with patch.object(views, "workos_client", mock_client):
+            response = self.client.get(reverse("auth_callback"))
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, "sso/login.html")
+            self.assertIn("error", response.context)
+            self.assertEqual(response.context["error"], "missing_code")
 
     def test_logout(self):
         """Test logout view clears session and redirects"""

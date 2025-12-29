@@ -33,7 +33,6 @@ The CSS file will only be served when DEBUG=True. See
 https://docs.djangoproject.com/en/3.1/howto/static-files/#configuring-static-files
 """
 DEBUG = False
-# DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
